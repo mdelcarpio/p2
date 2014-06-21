@@ -66,4 +66,28 @@ public class VagaJson {
         }
         return objetos;
     }
+    
+    public JsonObject getVaga(){
+         
+        ArrayList<Vaga> vagas = new ArrayList<>();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("RestJPAPU");
+        VagaJpaController dao = new VagaJpaController(emf);
+        vagas.addAll(dao.findVagaEntities());
+        
+        Vaga v = vagas.get(1);
+        JsonObject objeto = Json.createObjectBuilder()
+                .add("id", v.getId())
+                .add("custo", v.getCusto())
+                .add("bairro", v.getBairro())
+                .add("contato", Json.createObjectBuilder()
+                            .add("id", v.getContato().getId())
+                            .add("nome",v.getContato().getNome())
+                            .add("email",v.getContato().getEmail() )
+                    )
+
+           .build();
+            
+        
+        return objeto;
+    }
 }

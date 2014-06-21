@@ -32,5 +32,12 @@ public class VagasRWS {
        VagaJson vj = new VagaJson();
         return vj.getVagasEAnunciantes().toString();
     }
+    @GET
+    @Path("/vaga")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String primeiraVaga(){
+       VagaJson vj = new VagaJson();
+        return vj.getVaga().toString();
+    }
     
 }
