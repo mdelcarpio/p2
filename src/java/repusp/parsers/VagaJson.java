@@ -10,8 +10,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.json.Json;
 import javax.json.JsonObject;
-import repusp.daos.VagaDAO;
-import repusp.entidades.Vaga;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import restjpa.entidades.Vaga;
+import restjpa.dao.VagaJpaController;
 
 /**
  *
@@ -19,8 +22,11 @@ import repusp.entidades.Vaga;
  */
 public class VagaJson {
     public ArrayList<JsonObject> getVagasEAnunciantes(){
-         VagaDAO vd = new VagaDAO();
-        ArrayList<Vaga> vagas = vd.getAll();
+         
+        ArrayList<Vaga> vagas = new ArrayList<>();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("RestJPAPU");
+        VagaJpaController dao = new VagaJpaController(emf);
+        vagas.addAll(dao.findVagaEntities());
         
         ArrayList<JsonObject> objetos = new ArrayList<>();
         JsonObject objeto = null;
@@ -28,17 +34,23 @@ public class VagaJson {
             objeto = Json.createObjectBuilder()
                     .add("id", v.getId())
                     .add("custo", v.getCusto())
-                    .add("local", v.getLocal())
-                    .add("anunciante", Json.createObjectBuilder()
-                            .add("id", v.getAnunciante().getId())
-                            .add("nome",v.getAnunciante().getNome())).build();
+                    .add("bairro", v.getBairro())
+                    .add("contato", Json.createObjectBuilder()
+                            .add("id", v.getContato().getId())
+                            .add("nome",v.getContato().getNome())
+                            .add("email",v.getContato().getEmail() )
+                    
+                    ).build();
             objetos.add(objeto);
         }
         return objetos;
     }
     public ArrayList<JsonObject> getVagas(){
-         VagaDAO vd = new VagaDAO();
-        ArrayList<Vaga> vagas = vd.getAll();
+         
+        ArrayList<Vaga> vagas = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("RestJPAPU");
+        VagaJpaController dao = new VagaJpaController(emf);
+        vagas.addAll(dao.findVagaEntities());
         
         ArrayList<JsonObject> objetos = new ArrayList<>();
         JsonObject objeto = null;
@@ -46,7 +58,10 @@ public class VagaJson {
             objeto = Json.createObjectBuilder()
                     .add("id", v.getId())
                     .add("custo", v.getCusto())
-                    .add("local", v.getLocal()).build();
+                    .add("local", v.getBairro())
+                    .add("endereco", v.getEndereco()
+                       
+                    ).build();
             objetos.add(objeto);
         }
         return objetos;

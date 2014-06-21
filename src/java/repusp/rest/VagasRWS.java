@@ -12,9 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
-import repusp.daos.VagaDAO;
-import repusp.entidades.Vaga;
+import javax.ws.rs.core.UriInfo; 
 import repusp.parsers.VagaJson;
 
 /**

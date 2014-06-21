@@ -6,9 +6,9 @@
 
 package repusp.testes;
 
-import java.util.ArrayList;
-import repusp.entidades.Anunciante;
-import repusp.entidades.Vaga;
+import java.util.ArrayList; 
+import restjpa.entidades.Contato;
+import restjpa.entidades.Vaga;
 
 /**
  *
@@ -19,11 +19,11 @@ public class ListaVagas {
     static {
         Vagas = new ArrayList<>();
         Vaga v = null;
-        Anunciante a = null;
+        Contato a = null;
         for (int i = 0; i<10; i++){
-            v = new Vaga(i, Math.random()*100, "Local"+ i);
-            a = new Anunciante((long)i, "Anunciante "+i);
-            v.setAnunciante(a);
+            v = new Vaga();
+            a = new Contato();
+            v.setContato(a);
             Vagas.add(v);
         }
     }
